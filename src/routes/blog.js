@@ -23,5 +23,6 @@ router.post(
 router.get("/posts", blogController.getAllBlogPost);
 router.get("/post/:postId", blogController.getPostById);
 router.put("/post/:postId", blogController.updateBlogPost);
+router.delete("/post/:postId", blogController.deleteBlogPost);
 
 module.exports = router;
