@@ -1,4 +1,5 @@
 const { validationResult } = require("express-validator");
+const res = require("express/lib/response");
 const BlogPost = require("../models/blog");
 
 exports.createBlogPost = (req, res, next) => {
@@ -40,4 +41,36 @@ exports.createBlogPost = (req, res, next) => {
       });
     })
     .catch((err) => console.log(err));
+};
+
+exports.getAllBlogPost = (req, res, next) => {
+  BlogPost.find()
+    .then((result) => {
+      res.status(200).json({
+        message: "Data Blog Post berhasil dipanggil",
+        data: result,
+      });
+    })
+    .catch((err) => {
+      next(err);
+    });
+};
+
+exports.getPostById = (req, res, post) => {
+  const postId = req.params.postId;
+  BlogPost.findById(postId)
+    .then((result) => {
+      if (!result) {
+        const error = new Error("Blog Post tidak ditemukan");
+        error.errorStatus(400);
+        throw error;
+      }
+      res.status(200).json({
+        message: "Data Blog berhasil ditemukan",
+        data: result,
+      });
+    })
+    .catch((err) => {
+      next(err);
+    });
 };
