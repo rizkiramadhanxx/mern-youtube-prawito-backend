@@ -151,6 +151,5 @@ exports.deleteBlogPost = (req, res, next) => {
 
 const removeImage = (filePath) => {
   filePath = path.join(__dirname, "../../", filePath);
-  console.log("filePath", filePath);
   fs.unlink(filePath, (err) => console.log(err));
 };
